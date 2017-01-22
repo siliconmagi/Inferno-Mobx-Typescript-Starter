@@ -14,8 +14,11 @@ const frenchStore = observable({
 
 const app = document.getElementById('root');
 
-if (app) {
-  Inferno.render(<Provider englishStore={ englishStore } frenchStore={ frenchStore }><Root /></Provider>, app);
-}
+// if (app) {
+  // Inferno.render(<Provider englishStore={ englishStore } frenchStore={ frenchStore }><Root /></Provider>, app);
+// }
+Inferno.render(<Provider englishStore={ englishStore } frenchStore={ frenchStore }>
+    <Root/>
+    </Provider>, app)
 
 

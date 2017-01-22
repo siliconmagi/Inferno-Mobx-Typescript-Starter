@@ -6,19 +6,21 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
+    "jsx": "preserve",
+    "jsxFactory": "createElement",
     "sourceMap": true,
     "noEmit": true,
-    "noEmitHelpers": true,
     "strictNullChecks": false,
+    "removeComments": false,
     "lib": [
-      "es2015",
+      "es6",
+      "es7",
       "dom"
     ],
     "typeRoots": [
       "node_modules/@types"
     ],
     "types": [
-      "hammerjs",
       "node"
     ]
   },

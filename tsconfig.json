@@ -1,5 +1,4 @@
 {
-  "version": "2.1.4",
   "compilerOptions": {
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
@@ -9,7 +8,7 @@
     "jsxFactory": "createElement",
     "outDir": "./dist/",
     "target": "es5",
-    "module": "es6",
+    "module": "commonjs",
     "sourceMap": true,
     "lib": [
       "es6",
@@ -20,16 +19,18 @@
     "strictNullChecks": false,
     "removeComments": false,
     "noEmit": true,
-    "noEmitHelpers": true,
+    "typeRoots": [
+      "node_modules/@types"
+    ],
     "types": [
       "inferno",
       "source-map",
       "uglify-js",
-      "webpack"
+      "webpack",
+      "node"
     ]
   },
   "include": [
-    "types/*",
     "src/**/*",
     "node_modules/@types"
   ],
@@ -37,6 +38,10 @@
     "node_modules",
     "dist"
   ],
+  "awesomeTypescriptLoaderOptions": {
+    "forkChecker": true,
+    "useWebpackText": true
+  },
   "compileOnSave": false,
   "buildOnSave": false,
   "atom": {
