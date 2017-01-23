@@ -38,16 +38,24 @@ module.exports = function (options) {
           include: [helpers.root('src', 'styles')]
         },
         {
-          test: /\.scss$/,
-          use: ['style-loader', 'css-loader', 'sass-loader'],
+          test: /\.(sass|scss)$/,
+          use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
           include: [helpers.root('src', 'styles')]
         },
-
       ]
-
     },
 
     plugins: [
+      new LoaderOptionsPlugin({
+        debug: true,
+        options: {
+          postcss: [
+            require('autoprefixer')({
+              browsers: ['last 3 version']
+            })
+          ]
+        }
+      }),
       new DefinePlugin({
         'ENV': JSON.stringify(METADATA.ENV),
         'process.env': {
@@ -76,12 +84,6 @@ module.exports = function (options) {
       new AddAssetHtmlPlugin([
         { filepath: helpers.root(`dll/${DllBundlesPlugin.resolveFile('vendor')}`) }
       ]),
-      new LoaderOptionsPlugin({
-        debug: true,
-        options: {
-        }
-      }),
-
     ],
     devServer: {
       port: METADATA.port,

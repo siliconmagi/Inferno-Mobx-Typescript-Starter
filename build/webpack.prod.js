@@ -32,17 +32,17 @@ module.exports = function (env) {
         {
           test: /\.css$/,
           loader: ExtractTextPlugin.extract({
-              fallbackLoader: 'style-loader',
-              loader: 'css-loader'
-            }),
+            fallbackLoader: 'style-loader',
+            loader: 'css-loader'
+          }),
           include: [helpers.root('src', 'styles')]
         },
         {
-          test: /\.scss$/,
+          test: /\.(sass|scss)$/,
           loader: ExtractTextPlugin.extract({
-              fallbackLoader: 'style-loader',
-              loader: 'css-loader!sass-loader'
-            }),
+            fallbackLoader: 'style-loader',
+            loader: 'css-loader!postcss-loader!sass-loader'
+          }),
           include: [helpers.root('src', 'styles')]
         },
       ]
@@ -93,8 +93,8 @@ module.exports = function (env) {
         },
       }),
       // new CompressionPlugin({
-        // regExp: /\.css$|\.html$|\.js$|\.map$/,
-        // threshold: 2 * 1024
+      // regExp: /\.css$|\.html$|\.js$|\.map$/,
+      // threshold: 2 * 1024
       // }),
       new LoaderOptionsPlugin({
         minimize: true,

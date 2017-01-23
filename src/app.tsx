@@ -1,24 +1,21 @@
-import Inferno from 'inferno'
-import { Provider } from 'inferno-mobx'
-import { observable } from 'mobx'
-// import AppContainer from './views/AppContainer'
-import Root from './views/Root'
+// This is the entry point for our client-side logic
+import Inferno from 'inferno';
+import { Provider } from 'inferno-mobx';
+import { observable } from 'mobx';
+import { Router } from 'inferno-router';
+import createHistory from 'history/createHashHistory';
+import views from './views';
+import EnglishStore from './stores/EnglishStore';
+import './index.scss';
 
-const englishStore = observable({
-  title: 'Hello World'
-})
-
-const frenchStore = observable({
-  title: 'Bonjour tout le monde'
-})
-
+// We render our react app into this element
 const app = document.getElementById('root');
+const history = createHistory();
+const stores = { EnglishStore };
 
-// if (app) {
-  // Inferno.render(<Provider englishStore={ englishStore } frenchStore={ frenchStore }><Root /></Provider>, app);
-// }
-Inferno.render(<Provider englishStore={ englishStore } frenchStore={ frenchStore }>
-    <Root/>
+Inferno.render(
+    <Provider {...stores }>
+    <Router history={ history }>
+    { views }
+    </Router>
     </Provider>, app)
-
-
