@@ -37,11 +37,12 @@ module.exports = function (env) {
           }),
           include: [helpers.root('src', 'styles')]
         },
+        //added post-css testing
         {
           test: /\.(sass|scss)$/,
           loader: ExtractTextPlugin.extract({
             fallbackLoader: 'style-loader',
-            loader: 'css-loader!postcss-loader!sass-loader'
+            loader: 'css-loader!sass-loader'
           }),
           include: [helpers.root('src', 'styles')]
         },

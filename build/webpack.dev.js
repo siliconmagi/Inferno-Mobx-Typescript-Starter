@@ -27,7 +27,7 @@ module.exports = function (options) {
       filename: '[name].bundle.js',
       sourceMapFilename: '[file].map',
       chunkFilename: '[id].chunk.js',
-      library: 'ac_[name]',
+      library: 'sm_[name]',
       libraryTarget: 'var',
     },
     module: {
@@ -37,43 +37,35 @@ module.exports = function (options) {
           use: ['style-loader', 'css-loader'],
           include: [helpers.root('src', 'styles')]
         },
+        // added testing
         {
           test: /\.(sass|scss)$/,
-          use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
+          use: ['style-loader', 'css-loader', 'sass-loader'],
           include: [helpers.root('src', 'styles')]
         },
       ]
     },
-
+//Loader options testing
     plugins: [
-      new LoaderOptionsPlugin({
-        debug: true,
-        options: {
-          postcss: [
-            require('autoprefixer')({
-              browsers: ['last 3 version']
-            })
-          ]
-        }
-      }),
       new DefinePlugin({
         'ENV': JSON.stringify(METADATA.ENV),
         'process.env': {
           'ENV': JSON.stringify(METADATA.ENV),
         }
       }),
-
       new DllBundlesPlugin({
         bundles: {
           vendor: [
-            'inferno',
-            'inferno-router',
-            'inferno-component',
-            'inferno-mobx',
-            'mobx',
-            'history',
-            'normalize.css'
-          ]
+        'inferno',
+        'inferno-router',
+        'inferno-component',
+        'inferno-compat',
+        'inferno-mobx',
+        'styled-components',
+        'mobx',
+        'history',
+        'normalize.css'
+      ]
         },
         dllDir: helpers.root('dll'),
         webpackConfig: webpackMergeDll(commonConfig({env: ENV}), {
@@ -84,6 +76,12 @@ module.exports = function (options) {
       new AddAssetHtmlPlugin([
         { filepath: helpers.root(`dll/${DllBundlesPlugin.resolveFile('vendor')}`) }
       ]),
+      new LoaderOptionsPlugin({
+          debug: true,
+          options: {
+
+          }
+      }),
     ],
     devServer: {
       port: METADATA.port,

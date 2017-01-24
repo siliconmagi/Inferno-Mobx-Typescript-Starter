@@ -27,15 +27,22 @@ module.exports = function (options) {
         'inferno',
         'inferno-router',
         'inferno-component',
+        'inferno-compat',
         'inferno-mobx',
+        'styled-components',
         'mobx',
         'history',
         'normalize.css'
       ],
     },
+    // Add alias for compat testing
     resolve: {
       extensions: ['.ts', '.tsx', '.js', '.json'],
       modules: [helpers.root('src'), helpers.root('node_modules')],
+      alias: {
+            'react': 'inferno-compat',
+            'react-dom': 'inferno-compat'
+        },
     },
     module: {
       rules: [
@@ -61,10 +68,10 @@ module.exports = function (options) {
           exclude: [helpers.root('src', 'styles')]
         },
         {
-					test: /\.scss$/,
-					use: ['to-string-loader', 'css-loader', 'sass-loader'],
-					exclude: [helpers.root('src', 'styles')]
-				},
+          test: /\.(sass|scss)$/,
+          use: ['to-string-loader', 'css-loader', 'sass-loader'],
+          exclude: [helpers.root('src', 'styles')]
+        },
         {
           test: /\.html$/,
           use: 'raw-loader',
@@ -105,15 +112,6 @@ module.exports = function (options) {
       new HtmlElementsPlugin({
         headTags: require('./head-config.common')
       }),
-      new LoaderOptionsPlugin({
-        options: {
-          postcss: [
-            require('autoprefixer')({
-              browsers: ['last 3 version']
-            })
-          ]
-        }
-      })
     ],
   };
 }
